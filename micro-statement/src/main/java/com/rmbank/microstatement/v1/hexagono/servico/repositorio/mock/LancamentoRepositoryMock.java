@@ -5,6 +5,7 @@ import com.rmbank.microstatement.v1.hexagono.dominio.Conta;
 import com.rmbank.microstatement.v1.hexagono.dominio.Lancamento;
 import com.rmbank.microstatement.v1.hexagono.dominio.Usuario;
 import com.rmbank.microstatement.v1.hexagono.servico.repositorio.jpa.LancamentoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.function.Function;
 
 @Component
 @Profile("dev")
+@Slf4j
 public class LancamentoRepositoryMock implements LancamentoRepository {
     @Override
     public List<Lancamento> findAll() {
@@ -246,6 +248,9 @@ public class LancamentoRepositoryMock implements LancamentoRepository {
             lancamento.setDescricao("transacao mock");
             lancamento.setUuid(UUID.randomUUID().toString());
             list.add(lancamento);
+        }
+        for(Lancamento lancamento : list) {
+            log.info("LancamentoRepositoryMock => " + lancamento.toString());
         }
         return list;
     }

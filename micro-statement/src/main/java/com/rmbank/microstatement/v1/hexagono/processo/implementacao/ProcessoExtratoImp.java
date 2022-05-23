@@ -3,6 +3,7 @@ package com.rmbank.microstatement.v1.hexagono.processo.implementacao;
 import com.rmbank.microstatement.v1.hexagono.dominio.Lancamento;
 import com.rmbank.microstatement.v1.hexagono.processo.contrato.ProcessoExtrato;
 import com.rmbank.microstatement.v1.hexagono.servico.repositorio.jpa.LancamentoRepository;
+import com.rmbank.microstatement.v1.hexagono.servico.repositorio.mock.LancamentoRepositoryMock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,14 @@ public class ProcessoExtratoImp implements ProcessoExtrato {
 
     @Autowired
     LancamentoRepository lancamentoRepository;
+
+    /**
+     * Contrutor utilizado para injetar classe mock nos testes
+     * @param lancamentoRepository
+     */
+    public ProcessoExtratoImp(LancamentoRepository lancamentoRepository) {
+        this.lancamentoRepository = lancamentoRepository;
+    }
 
     @Override
     public List<Lancamento> getPorData(Long idConta, LocalDateTime inicio, LocalDateTime fim) {
