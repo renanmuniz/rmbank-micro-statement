@@ -8,12 +8,14 @@ import com.rmbank.microstatement.v1.rest.dto.CadastroDto;
 import com.rmbank.microstatement.v1.rest.dto.ContaDto;
 import com.rmbank.microstatement.v1.rest.dto.LancamentoDto;
 import com.rmbank.microstatement.v1.rest.dto.UsuarioDto;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 public class FabricaLancamentoDto {
 
     public static LancamentoDto fabricar(Lancamento lancamento) {
@@ -65,23 +67,28 @@ public class FabricaLancamentoDto {
     }
 
     private static String formatCPF(String cpf) {
-        String formatado = cpf;
         try {
             MaskFormatter mask = new MaskFormatter("###.###.###-##");
             mask.setValueContainsLiteralCharacters(false);
-            formatado = mask.valueToString(cpf);
+            String formatado = mask.valueToString(cpf);
             formatado = "***" + formatado.substring(3,12) + "**";
+            return formatado;
         } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
+            log.error(ex.getMessage());
         }
-        return formatado;
+        return cpf;
     }
 
     private static String formatarDataHora(String dthr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        LocalDateTime localDateInicio = LocalDateTime.parse(dthr, formatter);
-        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return localDateInicio.format(formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            LocalDateTime localDateInicio = LocalDateTime.parse(dthr, formatter);
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            return localDateInicio.format(formatter);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return dthr;
     }
 
     // Sonar rule: java:S1118

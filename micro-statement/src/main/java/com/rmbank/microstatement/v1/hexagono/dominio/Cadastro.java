@@ -19,27 +19,27 @@ public class Cadastro {
     @NotNull
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @NotNull
     @NotEmpty
     @Column(name = "nome")
-    public String nome;
+    private String nome;
 
     @NotNull
     @NotEmpty
     @Column(name = "telefone")
-    public String telefone;
+    private String telefone;
 
     @NotNull
     @NotEmpty
     @Column(name = "email")
-    public String email;
+    private String email;
 
     @NotNull
     @NotEmpty
     @Column(name = "cpf_cnpj")
-    public String cpfCnpj;
+    private String cpfCnpj;
 
     public void validar() {
         Validador.validar(this);
