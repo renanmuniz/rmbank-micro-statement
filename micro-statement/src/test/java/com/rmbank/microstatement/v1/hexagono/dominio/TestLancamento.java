@@ -134,6 +134,18 @@ public class TestLancamento {
     }
 
     @Test
+    void testeDtHrLanctoFuturo() {
+        try {
+            Lancamento lancamento = fabricarValido();
+            lancamento.setDtHrLancamento(LocalDateTime.now().plusDays(1));
+            lancamento.validar();
+            Assertions.fail("Deveria dar erro de validação.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
     void testeRegraCreditoRemetentePreenchido1() {
         try {
             Lancamento lancamento = fabricarValido();

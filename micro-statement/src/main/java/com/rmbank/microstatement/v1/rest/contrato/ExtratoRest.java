@@ -7,5 +7,5 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ExtratoRest {
-    ResponseEntity<List<LancamentoDto>> getPorData(Long idConta, String inicio, String fim) throws NegocioException;
+    ResponseEntity<List<LancamentoDto>> getPorData(Long idConta, String inicio, String fim);
 }

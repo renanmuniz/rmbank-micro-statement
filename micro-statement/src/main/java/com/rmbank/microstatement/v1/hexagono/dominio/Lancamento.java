@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class Lancamento {
     private String debitoCredito;
 
     @NotNull
+    @PastOrPresent
     @Column(name = "dthrlancto")
     private LocalDateTime dtHrLancamento;
 
